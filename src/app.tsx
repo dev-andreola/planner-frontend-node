@@ -45,7 +45,21 @@ export function App() {
       return;
     }
 
+    if (emailsToInvite.includes(email)) {
+      return;
+    }
+
     setEmailsToInvite([...emailsToInvite, email]);
+
+    e.currentTarget.reset();
+  }
+
+  function removeEmailFromInvite(emailToRemove: string) {
+    const newEmailList = emailsToInvite.filter(
+      (email) => email !== emailToRemove
+    );
+
+    setEmailsToInvite(newEmailList);
   }
 
   return (
@@ -164,7 +178,10 @@ export function App() {
                     className="py-1.5 px-2.5 rounded-md bg-zinc-800 text-zinc-300 flex items-center gap-2"
                   >
                     <span>{email}</span>
-                    <button type="button">
+                    <button
+                      type="button"
+                      onClick={() => removeEmailFromInvite(email)}
+                    >
                       <X className="size-4 text-zinc-400" />
                     </button>
                   </div>
