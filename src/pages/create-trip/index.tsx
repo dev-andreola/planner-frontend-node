@@ -4,13 +4,23 @@ import { InviteGuestsModal } from "./invite-guests-modal";
 import { ConfirmTripModal } from "./confirm-trip-modal";
 import { DestinationNDateStep } from "./steps/destination-n-date-step";
 import { InviteGuestsStep } from "./steps/invite-guests-step";
+import { DateRange } from "react-day-picker";
 
 export function CreateTripPage() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const navigate = useNavigate();
 
   const [isGuestsInputOpen, setIsGuestsInputOpen] = useState(false);
   const [isGuestsModalOpen, setIsGuestsModalOpen] = useState(false);
   const [isConfirmTripModalOpen, setIsConfirmTripModalOpen] = useState(false);
+
+  const [destination, setDestination] = useState("");
+  const [ownerName, setOwnerName] = useState("");
+  const [ownerEmail, setOwnerEmail] = useState("");
+  const [eventStartNEndDates, setEventStartNEndDates] = useState<
+    DateRange | undefined
+  >();
+
   const [emailsToInvite, setEmailsToInvite] = useState([
     "jessica.white44@gmail.com",
     "erik_leffler3@gmail.com",
@@ -70,7 +80,12 @@ export function CreateTripPage() {
 
   function createTrip(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    navigate("/trips/123");
+
+    console.log(destination);
+    console.log(eventStartNEndDates);
+    console.log(emailsToInvite);
+    console.log(ownerName);
+    console.log(ownerEmail);
   }
 
   return (
@@ -89,6 +104,9 @@ export function CreateTripPage() {
             closeGuestsInput={closeGuestsInput}
             isGuestsInputOpen={isGuestsInputOpen}
             openGuestsInput={openGuestsInput}
+            setDestination={setDestination}
+            eventStartNEndDates={eventStartNEndDates}
+            setEventStartNEndDates={setEventStartNEndDates}
           />
 
           {/* GUESTS INPUT */}
@@ -132,6 +150,8 @@ export function CreateTripPage() {
         <ConfirmTripModal
           closeConfirmTripModal={closeConfirmTripModal}
           createTrip={createTrip}
+          setOwnerName={setOwnerName}
+          setOwnerEmail={setOwnerEmail}
         />
       )}
     </div>

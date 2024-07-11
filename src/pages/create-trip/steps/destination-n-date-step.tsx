@@ -9,17 +9,20 @@ interface DestinationNDateStepProps {
   isGuestsInputOpen: boolean;
   closeGuestsInput: () => void;
   openGuestsInput: () => void;
+  setDestination: (destination: string) => void;
+  eventStartNEndDates: DateRange | undefined;
+  setEventStartNEndDates: (dates: DateRange | undefined) => void;
 }
 
 export function DestinationNDateStep({
   isGuestsInputOpen,
   closeGuestsInput,
   openGuestsInput,
+  setDestination,
+  setEventStartNEndDates,
+  eventStartNEndDates,
 }: DestinationNDateStepProps) {
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
-  const [eventStartNEndDates, setEventStartNEndDates] = useState<
-    DateRange | undefined
-  >();
 
   function openDatePicker() {
     setIsDatePickerOpen(true);
@@ -45,6 +48,7 @@ export function DestinationNDateStep({
           type="text"
           placeholder="Para onde você vai?"
           disabled={isGuestsInputOpen}
+          onChange={(event) => setDestination(event.target.value)}
         />
       </div>
 
