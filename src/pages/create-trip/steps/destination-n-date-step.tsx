@@ -55,7 +55,7 @@ export function DestinationNDateStep({
       <button
         onClick={openDatePicker}
         disabled={isGuestsInputOpen}
-        className="flex items-center gap-2 text-left w-[]"
+        className="flex items-center gap-2 text-left min-w-[150px]"
       >
         <Calendar className="size-5 text-zinc-400" />
         <span className="text-lg text-zinc-400">
