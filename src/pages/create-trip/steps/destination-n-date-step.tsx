@@ -3,6 +3,7 @@ import { Button } from "../../../components/button";
 import { useState } from "react";
 import { DateRange, DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
+import { format } from "date-fns";
 
 interface DestinationNDateStepProps {
   isGuestsInputOpen: boolean;
@@ -28,6 +29,13 @@ export function DestinationNDateStep({
     setIsDatePickerOpen(false);
   }
 
+  const displayedDate =
+    eventStartNEndDates && eventStartNEndDates.from && eventStartNEndDates.to
+      ? format(eventStartNEndDates.from, "d' de 'LLL")
+          .concat(" até ")
+          .concat(format(eventStartNEndDates.to, "d' de 'LLL"))
+      : null;
+
   return (
     <div className="h-16 bg-zinc-900 px-4 rounded-xl flex items-center shadow-shape gap-3">
       <div className="flex items-center gap-2 flex-1">
@@ -43,10 +51,12 @@ export function DestinationNDateStep({
       <button
         onClick={openDatePicker}
         disabled={isGuestsInputOpen}
-        className="flex items-center gap-2 text-left"
+        className="flex items-center gap-2 text-left w-[]"
       >
         <Calendar className="size-5 text-zinc-400" />
-        <span className="text-lg text-zinc-400 w-40">Quando?</span>
+        <span className="text-lg text-zinc-400">
+          {displayedDate || "Quando?"}
+        </span>
       </button>
 
       {isDatePickerOpen && (
@@ -64,7 +74,6 @@ export function DestinationNDateStep({
 
             <DayPicker
               mode="range"
-              modifiersStyles={modifiersStyles}
               selected={eventStartNEndDates}
               onSelect={setEventStartNEndDates}
             />
