@@ -8,7 +8,6 @@ import { DateRange } from "react-day-picker";
 import { api } from "../../lib/axios";
 
 export function CreateTripPage() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const navigate = useNavigate();
 
   const [isGuestsInputOpen, setIsGuestsInputOpen] = useState(false);
@@ -22,12 +21,7 @@ export function CreateTripPage() {
     DateRange | undefined
   >();
 
-  const [emailsToInvite, setEmailsToInvite] = useState([
-    "jessica.white44@gmail.com",
-    "erik_leffler3@gmail.com",
-    "rebekah.conn21@gmail.com",
-    "emile.mayer25@yahoo.com",
-  ]);
+  const [emailsToInvite, setEmailsToInvite] = useState<string[]>([]);
 
   function openGuestsInput() {
     setIsGuestsInputOpen(true);
@@ -81,12 +75,6 @@ export function CreateTripPage() {
 
   async function createTrip(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
-    console.log(destination);
-    console.log(eventStartNEndDates);
-    console.log(emailsToInvite);
-    console.log(ownerName);
-    console.log(ownerEmail);
 
     if (!destination) {
       return;
@@ -180,6 +168,8 @@ export function CreateTripPage() {
       {/* CONFIRM TRIP MODAL */}
       {isConfirmTripModalOpen && (
         <ConfirmTripModal
+          destination={destination}
+          eventStartNEndDates={eventStartNEndDates}
           closeConfirmTripModal={closeConfirmTripModal}
           createTrip={createTrip}
           setOwnerName={setOwnerName}
