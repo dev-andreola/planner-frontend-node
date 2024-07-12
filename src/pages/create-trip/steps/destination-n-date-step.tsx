@@ -4,6 +4,7 @@ import { useState } from "react";
 import { DateRange, DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
 
 interface DestinationNDateStepProps {
   isGuestsInputOpen: boolean;
@@ -77,6 +78,8 @@ export function DestinationNDateStep({
             </div>
 
             <DayPicker
+              className="capitalize"
+              locale={ptBR}
               mode="range"
               selected={eventStartNEndDates}
               onSelect={setEventStartNEndDates}
