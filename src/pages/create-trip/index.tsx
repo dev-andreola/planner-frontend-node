@@ -24,7 +24,9 @@ export function CreateTripPage() {
   const [emailsToInvite, setEmailsToInvite] = useState<string[]>([]);
 
   function openGuestsInput() {
-    setIsGuestsInputOpen(true);
+    if (destination && eventStartNEndDates) {
+      setIsGuestsInputOpen(true);
+    }
   }
 
   function closeGuestsInput() {
