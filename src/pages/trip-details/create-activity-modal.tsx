@@ -26,7 +26,7 @@ export function CreateActivityModal({
       occurs_at,
     });
 
-    closeCreateActivityModal();
+    window.document.location.reload();
   }
 
   return (
@@ -49,7 +49,7 @@ export function CreateActivityModal({
           <div className="h-14 px-4 bg-zinc-950 border border-zinc-800 rounded-lg flex items-center gap-2">
             <Tag className="size-5 text-zinc-400" />
             <input
-              type="email"
+              type="name"
               name="title"
               placeholder="Qual a atividade?"
               className="bg-transparent text-lg placeholder-zinc-400 outline-none flex-1"
