@@ -3,6 +3,7 @@ import { Button } from "../../components/button";
 import { api } from "../../lib/axios";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { CreateLinkModal } from "./create-link-modal";
 
 interface Link {
   title: string;
@@ -12,12 +13,19 @@ interface Link {
 export function ImportantLinks() {
   const { tripId } = useParams();
   const [links, setLinks] = useState<Link[]>([]);
+  const [isCreateLinkModalOpen, setIsCreateLinkModalOpen] = useState(false);
+
+  function openCreateLinkModal() {
+    setIsCreateLinkModalOpen(true);
+  }
+
+  function closeCreateLinkModal() {
+    setIsCreateLinkModalOpen(false);
+  }
 
   useEffect(() => {
     api.get(`/trips/${tripId}/links`).then((res) => setLinks(res.data.links));
   }, [tripId]);
-
-  console.log(links);
 
   return (
     <div className="space-y-6">
@@ -34,7 +42,8 @@ export function ImportantLinks() {
                   {link.title}
                 </span>
                 <a
-                  href="#"
+                  target="_blank"
+                  href={link.url}
                   className="block text-xs text-zinc-400 truncate hover:text-zinc-200"
                 >
                   {link.url}
@@ -45,10 +54,14 @@ export function ImportantLinks() {
           );
         })}
       </div>
-      <Button size="full" variant="secondary">
+      <Button onClick={openCreateLinkModal} size="full" variant="secondary">
         <Plus className="size-5" />
         Cadastrar novo link
       </Button>
+
+      {isCreateLinkModalOpen && (
+        <CreateLinkModal closeCreateLinkModal={closeCreateLinkModal} />
+      )}
     </div>
   );
 }
